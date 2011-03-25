@@ -22,10 +22,11 @@ module Dhaka
     # Constructs a token of type +symbol_name+ from the +current_lexeme+.
     def create_token(symbol_name, value = current_lexeme.characters.join)
       value.gsub!(Regexp.new LexerSupport::UTF_8_ENCODING_MARK + '((?:[8-9a-f][0-9a-f])+)') do |match|
-        @count_utf_8_marked += $1.length
         if @force_encoding
+          @count_utf_8_marked += $1.length
           [$1].pack('H*').force_encoding('UTF-8')
         else
+          @count_utf_8_marked += $1.length - 1
           [$1].pack('H*')
         end
       end
