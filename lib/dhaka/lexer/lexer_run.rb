@@ -5,6 +5,7 @@ module Dhaka
 
     attr_reader :current_lexeme
     def initialize lexer, input
+      input = input.dup
       @force_encoding = RUBY_VERSION > '1.9.0';
       input.force_encoding('BINARY') if @force_encoding
       #U+07FF - U+1FFFFF codepoint
